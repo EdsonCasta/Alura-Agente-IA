@@ -1,20 +1,26 @@
-# Variables de entorno
-python-dotenv==1.2.2
+# Framework y UI
+streamlit
 
-# Ingesta y procesamiento de PDF
-pypdf==6.14.2
+# LangChain y Modelo de IA
+langchain
+langchain-community
+langchain-google-genai
+google-generativeai
 
-# Base de datos vectorial
-chromadb==1.5.9
-langchain-chroma==1.1.0
+# Integraciones de LangChain para Embeddings y Chroma
+langchain-huggingface
+langchain-chroma
 
-# Embeddings y modelos locales (HuggingFace)
-sentence-transformers==5.6.1
-langchain-huggingface==1.2.2
+# Base de Datos Vectorial y Embeddings
+chromadb
+sentence-transformers
 
-# Integracion con Google Gemini (LLM)
-langchain-google-genai==4.3.1
-google-genai==2.14.0
+# Carga y Procesamiento de Documentos
+pypdf
 
-# Core de LangChain
-langchain-core==1.5.1
+# Utilidades y Entorno
+python-dotenv
+
+# Visión y Soporte Interno
+torch
+torchvision
