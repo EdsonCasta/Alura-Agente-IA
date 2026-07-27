@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
-# Asegurar que la raíz del proyecto esté en el PYTHONPATH
 BASE_DIR = Path(__file__).resolve().parent.parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
@@ -14,7 +13,6 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 from src.loader import cargar_y_procesar_pdf
 
-# Configurar salida UTF-8 para consola Windows
 if sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
@@ -35,13 +33,13 @@ def crear_o_cargar_vectorstore():
     embeddings = obtener_modelo_embeddings()
 
     if os.path.exists(CHROMA_PATH) and os.listdir(CHROMA_PATH):
-        print(f"📦 Cargando VectorStore existente desde: {CHROMA_PATH}...")
+        print(f" Cargando VectorStore existente desde: {CHROMA_PATH}...")
         vectorstore = Chroma(
             persist_directory=str(CHROMA_PATH),
             embedding_function=embeddings
         )
     else:
-        print("🚀 Creando nueva base de datos vectorial en ChromaDB...")
+        print(" Creando nueva base de datos vectorial en ChromaDB...")
         chunks = cargar_y_procesar_pdf()
         
         vectorstore = Chroma.from_documents(
@@ -56,7 +54,6 @@ def crear_o_cargar_vectorstore():
 if __name__ == "__main__":
     vectorstore = crear_o_cargar_vectorstore()
 
-    # Consulta de prueba semántica
     query = "¿Cuáles son los tiempos y costos de envío?"
     print(f"\n Búsqueda semántica para: '{query}'")
     

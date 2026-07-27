@@ -5,7 +5,6 @@ from pathlib import Path
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# Configurar salida a UTF-8 para consola Windows
 if sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
@@ -16,7 +15,6 @@ def limpiar_texto(texto: str) -> str:
     """
     Punto 2 de Trello: Limpieza básica de ruido en el texto extraído.
     """
-    # Reemplaza múltiples espacios en blanco y saltos de línea excesivos
     texto = re.sub(r'[ \t]+', ' ', texto)
     texto = re.sub(r'\n\s*\n', '\n\n', texto)
     return texto.strip()
@@ -34,11 +32,9 @@ def cargar_y_procesar_pdf(pdf_path: Path = DEFAULT_PDF_PATH):
 
     print(f" Páginas cargadas: {len(documentos)}")
 
-    # 1 y 2. Limpieza de texto en cada página cargada
     for doc in documentos:
         doc.page_content = limpiar_texto(doc.page_content)
 
-    # 3. Chunking (División en fragmentos)
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=600,
         chunk_overlap=100,
@@ -46,7 +42,6 @@ def cargar_y_procesar_pdf(pdf_path: Path = DEFAULT_PDF_PATH):
     )
     chunks = text_splitter.split_documents(documentos)
 
-    # 4. Atribución de Metadatos globales y específicos
     for idx, chunk in enumerate(chunks):
         chunk.metadata.update({
             "empresa": "TechMarket Colombia S.A.S.",

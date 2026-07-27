@@ -33,10 +33,8 @@ def recuperar_contexto(
     """
     vectorstore = obtener_vectorstore()
     
-    # Fases 1, 2 y 3: Búsqueda Vectorial Amplia + Filtrado por Metadatos
     print(f" Realizando búsqueda vectorial para: '{query}'...")
     
-    # Chroma busca k_inicial candidatos
     resultados_con_score = vectorstore.similarity_search_with_score(
         query=query,
         k=k_inicial,
@@ -49,11 +47,8 @@ def recuperar_contexto(
             "documentos": []
         }
 
-    # Fase 4: Reclasificación (Reranking)
-    # Ordenamos por menor distancia (mayor similitud) y tomamos los top_k_final más útiles
     candidatos_reordenados = sorted(resultados_con_score, key=lambda x: x[1])[:top_k_final]
 
-    # Fase 5: Ensamblaje del Contexto
     bloques_contexto = []
     documentos_recuperados = []
 
@@ -62,7 +57,6 @@ def recuperar_contexto(
         pagina = doc.metadata.get("page_label", doc.metadata.get("page", "N/A"))
         codigo = doc.metadata.get("documento_codigo", "N/A")
         
-        # Estructuramos cada bloque con sus metadatos visibles para la cita
         bloque = (
             f"--- FUENTE [{i}] ---\n"
             f"Documento: {codigo} (Página {pagina})\n"
@@ -83,9 +77,7 @@ def recuperar_contexto(
         "documentos": documentos_recuperados
     }
 
-
 if __name__ == "__main__":
-    # Prueba del pipeline de recuperación
     pregunta_prueba = "¿Cuáles son los tiempos de entrega para compras en CyberLunes o eventos de alto tráfico?"
     
     resultado = recuperar_contexto(

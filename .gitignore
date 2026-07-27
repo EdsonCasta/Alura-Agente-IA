@@ -1,15 +1,11 @@
-# Entorno virtual y temporales de Python
 venv/
 .venv/
 __pycache__/
 *.pyc
 
-# Claves secretas y variables de entorno
 .env
 
-# Archivos de base de datos vectorial
 *.chroma/
 *.faiss
 
-# Base de datos vectorial (Artefacto generado)
 chroma_db/

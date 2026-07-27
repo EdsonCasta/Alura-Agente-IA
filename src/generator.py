@@ -7,7 +7,6 @@ from retriever import recuperar_contexto
 
 load_dotenv()
 
-# Configuracion del LLM Gemini
 def obtener_llm():
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
@@ -15,11 +14,10 @@ def obtener_llm():
     
     return ChatGoogleGenerativeAI(
         model="gemini-flash-lite-latest",
-        temperature=0.0,  # 0.0 para respuestas factuales sin creatividad/alucinaciones
+        temperature=0.0,
         google_api_key=api_key
     )
 
-# Prompt del Sistema diseñado para cero alucinaciones y citas obligatorias
 PROMPT_RAG = ChatPromptTemplate.from_messages([
     ("system", """Eres un asistente virtual de soporte operativo e informativo para colaboradores.
 Tu objetivo es responder a la pregunta del usuario utilizando UNICAMENTE el contexto proporcionado.
@@ -48,13 +46,10 @@ def responder_pregunta(
     """
     Etapa 5: Generacion de respuesta con control de alucinaciones y fallback.
     """
-    # 1. Recuperar contexto de la Etapa 4
     resultado_retrieval = recuperar_contexto(query=pregunta, k_inicial=5, top_k_final=3)
     documentos = resultado_retrieval["documentos"]
     contexto_texto = resultado_retrieval["contexto_texto"]
 
-    # 2. Control de Alucinacion / Umbral de Confianza
-    # Si no hay documentos o la mejor distancia esta fuera del umbral aceptable
     if not documentos or (documentos[0]["distancia"] > umbral_distancia):
         return {
             "respuesta": (
@@ -67,7 +62,6 @@ def responder_pregunta(
             "relevancia_alta": False
         }
 
-    # 3. Invocacion al LLM
     llm = obtener_llm()
     chain = PROMPT_RAG | llm
     
@@ -76,7 +70,6 @@ def responder_pregunta(
         "pregunta": pregunta
     })
 
-    # Extraer únicamente la cadena de texto limpia
     texto_raw = respuesta_llm.content
     if isinstance(texto_raw, list):
         partes = []
