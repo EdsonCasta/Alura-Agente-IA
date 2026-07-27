@@ -10,3 +10,6 @@ __pycache__/
 # Archivos de base de datos vectorial
 *.chroma/
 *.faiss
+
+# Base de datos vectorial (Artefacto generado)
+chroma_db/
