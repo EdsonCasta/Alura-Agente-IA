@@ -6,6 +6,25 @@ Un asistente virtual inteligente basado en **Arquitectura RAG (Retrieval-Augment
 
 ---
 
+## 💡 Ejemplos de Preguntas y Respuestas del Agente
+
+### ❓ Pregunta 1 (Envíos y Fechas Especiales)
+> **Usuario:** *"¿Cuáles son los tiempos de entrega para compras en CyberLunes?"*  
+> **Agente IA:** *"Para eventos de alto tráfico como CyberLunes o Black Friday, los tiempos de entrega se extenderán hasta +48 horas hábiles adicionales."*  
+> **Fuentes:** `MOP-2026-V5-COP (Página 1)`
+
+### ❓ Pregunta 2 (Consultas Financieras)
+> **Usuario:** *"¿Qué valor hubo en ventas en el mes de mayo?"*  
+> **Agente IA:** *"El valor de las ventas brutas en el mes de mayo fue de $2.100.000.000 COP."*  
+> **Fuentes:** `MOP-2026-V5-COP (Página 2)`
+
+### ❓ Pregunta 3 (Control de Alucinaciones / Fallback)
+> **Usuario:** *"¿Cuánto son las ganancias del mes de mayo del 2026?"*  
+> **Agente IA:** *"No encontré esta información en los documentos operativos disponibles. Te sugiero consultar con el área de Finanzas."*  
+> **Fuentes:** `MOP-2026-V5-COP (Página 2)`
+
+---
+
 ## 📸 Vista Previa del Sistema
 
 | Interfaz y Búsqueda Semántica | Desglose de Respuestas y Métricas | Registro de Ejecución y Terminal |
